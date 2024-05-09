@@ -14,6 +14,9 @@
       Add a new board
     </h2>
 
+    <% if current_user == nil %>
+    <p>Must be <a href="/users/sign_in">signed in</a> to add a new board.</p>
+    <% else %>
     <form action="/insert_board" method="post">
       <div>
         <label for="name_box">
@@ -27,6 +30,7 @@
         Add board
       </button>
     </form>
+    <% end %>
   </div>
 </div>
 
@@ -35,9 +39,16 @@
 <ul>
   <% @list_of_boards.each do |a_board| %>
     <li>
-      <a href="/boards/<%= a_board.id %>">
-        <%= a_board.name %>
-      </a>
+      <div>
+        <a href="/boards/<%= a_board.id %>">
+          <%= a_board.name %>
+        </a>
+      </div>
+
+      <div>
+        Owner: <%= a_board.user.email %>
+      </div>
+      <hr>
     </li>
   <% end %>
 </ul>
